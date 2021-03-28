@@ -86,6 +86,14 @@ class Node{
             this->head = newRecord;
             this->count++; 
         }
+        void insertRecordAfter(string *record){
+            NodeRecord *newRecord = new NodeRecord(record);
+            NodeRecord *cur = this->head;
+            while( cur->getNext() != nullptr)
+                cur = cur->getNext();
+
+            cur->setNext( newRecord ); 
+        }
         void print(){
             NodeRecord *cur = this->head;
             if( this->key !=""){
@@ -122,6 +130,14 @@ class HashIndexList{
         this->node = new Node();
         head = node;
         size = -1;
+    }
+    void insertAfter( string keyVal, string *record){
+        node = new Node( keyVal, record);
+        Node* cur = this->head;
+        while( cur->getNext() != nullptr)
+            cur = cur->getNext();
+        
+        cur->setNext( node );
     }
     void insertBefore(string keyVal, string *record){
         node = new Node(keyVal,record);
