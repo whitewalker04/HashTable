@@ -55,6 +55,7 @@ class Node{
         string key;
         int count = 0;
         NodeRecord *head;
+        NodeRecord *tail;
         public:
         // assign values using this pointer
         Node(){
@@ -62,11 +63,13 @@ class Node{
             this->key = "";
             this->count = 0;
             this->head = new NodeRecord();
+            this->tail = head;
         }
         Node(string keyVal, string *record){
             this->key = keyVal;
             this->next = nullptr;
             this->head = new NodeRecord(record);
+            this->tail = this->head;
             this->count++;
         }
         Node *getNext(){
@@ -89,22 +92,16 @@ class Node{
         }
         void insertRecordAfter(string *record){
             NodeRecord *newRecord = new NodeRecord(record);
-            NodeRecord *cur = this->head;
-            while( cur->getNext() != nullptr)
-                cur = cur->getNext();
-
-            cur->setNext( newRecord );
-            this->count++; 
+            this->tail->setNext(newRecord);
+            tail = newRecord;
+            this->count++;
         }
         void print(){
-            NodeRecord *cur = this->head;
+            //NodeRecord *cur = this->head;
             if( this->key !=""){
                 cout << this->key;
                 cout << " (" << this->count << ")," ;
             }
-        }
-        void getKeyNode(string keyVal){
-            NodeRecord *cur = head;
         }
         void printRecords(){
             NodeRecord *cur = this->head;
@@ -126,22 +123,14 @@ class Node{
 class HashIndexList{
     Node *node;
     Node *head;
+    Node *tail;
     int size;
     public:
     HashIndexList(){
         this->node = new Node();
         head = node;
+        tail = head;
         size = -1;
-    }
-    void insertAfter( string keyVal, string *record){
-        node = new Node( keyVal, record);
-        Node* cur = this->head;
-        while( cur->getNext() != nullptr)
-            cur = cur->getNext();
-        
-        cur->setNext( node );
-        this->size++;
-
     }
     void insertBefore(string keyVal, string *record){
         node = new Node(keyVal,record);
@@ -150,13 +139,19 @@ class HashIndexList{
         this->size++;
         
     }
-    void insertRecordAt(int keyPos, string *record, bool isInsertBefore ){
-        Node *keyValNode = getNodeAt(keyPos, isInsertBefore);
-        //cout << keyValNode->getKey() << endl;  
-        isInsertBefore ? keyValNode->insertRecordBefore(record) : keyValNode->insertRecordAfter(record);
+    void insertAfter(string keyVal, string *record){
+        node  = new Node(keyVal, record);
+        tail->setNext(node);
+        tail = node;
+        this->size++;
     }
-    Node *getNodeAt(int pos, bool isInsertBefore ){
-        Node* cur = isInsertBefore ? this->head : this->head->getNext();
+    void insertRecordAt(int keyPos, string *record, bool insertBefore){
+        Node *keyValNode = getNodeAt(keyPos, insertBefore);
+        //cout << keyValNode->getKey() << endl;  
+        insertBefore ? keyValNode->insertRecordBefore(record) : keyValNode->insertRecordAfter(record) ;
+    }
+    Node *getNodeAt(int pos, bool insertBefore){
+        Node* cur =insertBefore ? this->head : this->head->getNext();
         int index = 0;
         while(cur != nullptr){
             if (index == pos){
@@ -184,8 +179,8 @@ class HashIndexList{
         cout<<endl;
     
     }
-    int keyExistAt(string keyVal, bool isInsertBefore){
-        Node *cur = isInsertBefore ?  this->head : this->head->getNext();
+    int keyExistAt(string keyVal, bool insertBefore){
+        Node *cur = insertBefore ? this->head : this->head->getNext();
         int index = 0;
         while(cur != nullptr){
             if (cur->getKey() == keyVal){
@@ -202,14 +197,14 @@ class HashIndexList{
 
 class HashTable {
     int slots;
-    HashIndexList *hil; 
+    HashIndexList *hil;
     public: 
     HashTable(int slots){
         this->slots = slots;
         hil = new HashIndexList[slots];
-        for( int i =0; i< slots; i++){
-            hil[i];
-        }       // hil = createList( slots);
+        // for( int i =0; i< slots; i++){
+        //     hil[i];
+        // }       // hil = createList( slots);
     }  
     int getSlots(){
         return this->slots;
@@ -227,7 +222,7 @@ class HashTable {
     int hash(string keyVal){
         return djb2(keyVal) % this->slots;
     }
-    void insert(string **data, int colNum, int rows, bool insertBefore = true){
+    void insert(string **data, int colNum, int rows, bool insertBefore){
         string val;
         string *record;
         int index;
@@ -240,10 +235,10 @@ class HashTable {
             int keyExistAt = hil[index].keyExistAt(val, insertBefore);
             //cout << keyExistAt << endl;
             if (keyExistAt == -1){
-                insertBefore ? hil[index].insertBefore(val, record) : hil[index].insertAfter(val, record);
+               insertBefore ? hil[index].insertBefore(val, record) : hil[index].insertAfter(val, record) ;
             } 
             else{
-                hil[index].insertRecordAt(keyExistAt, record, insertBefore ); 
+                hil[index].insertRecordAt(keyExistAt, record, insertBefore); 
             }
             //hil[index].print();
 
@@ -431,12 +426,12 @@ int main(int argc, char **argv) {
         else if (cmd == "lookup") {
             getVal(cin, val);
             // lookup code here
-            printCols(data);
             int hashIndex = hash->hash(val);
             //cout << hashIndex << fflush;
             
             int keyPos = hash->getListAt(hashIndex).keyExistAt(val, INSERT_BEFORE);
             if (keyPos != -1){
+                printCols(data);
                 Node *keyValNode = hash->getListAt(hashIndex).getNodeAt(keyPos, INSERT_BEFORE);
                 keyValNode->printRecords();
             }
