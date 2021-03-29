@@ -11,8 +11,10 @@ In this project, we are going to implement the concept of Hash Table.
 
 ## Data Structure
 ![Hash Table Structure](https://user-images.githubusercontent.com/36120672/112774313-ec120080-8ffe-11eb-8391-01cd44f5fac5.png)
-![Hash Index List Structuree](https://user-images.githubusercontent.com/36120672/112774272-c4bb3380-8ffe-11eb-9b39-a395908baf21.png)
-	
+
+![Hash Index List Structuree](https://user-images.githubusercontent.com/36120672/112774391-24b1da00-8fff-11eb-9e7e-d0e2d3a109d3.png)
+
+
 ## Technologies
 Project is created with:
 * c++ language
