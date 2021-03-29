@@ -2,11 +2,15 @@
 
 ## Table of contents
 * [Introduction](#introduction)
+* [Data Structure](#datastructure)
 * [Technologies](#technologies)
 * [Execution](#execution)
 
 ## Introduction
 In this project, we are going to implement the concept of Hash Table. 
+
+## Data Structure
+![plot](./dataStruct.HashIndexList.png)
 	
 ## Technologies
 Project is created with:

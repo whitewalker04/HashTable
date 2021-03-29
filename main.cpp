@@ -202,8 +202,7 @@ class HashIndexList{
 
 class HashTable {
     int slots;
-    HashIndexList *hil;
-    string key; 
+    HashIndexList *hil; 
     public: 
     HashTable(int slots){
         this->slots = slots;
