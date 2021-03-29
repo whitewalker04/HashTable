@@ -10,7 +10,7 @@
 In this project, we are going to implement the concept of Hash Table. 
 
 ## Data Structure
-![GitHub Logo](/dataStruct.HashIndexList.png)
+![Hash Index List](/dataStruct.HashIndexList.png)
 Format: ![Alt Text](url)
 	
 ## Technologies
