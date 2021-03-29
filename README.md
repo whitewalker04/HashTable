@@ -1,24 +1,29 @@
 #### HASHTABLE IMPLEMENTATION
 
 ## Table of contents
-* [General info](#general-info)
+* [Introduction](#introduction)
+* [Data Structure](#datastructure)
 * [Technologies](#technologies)
-* [Setup](#setup)
+* [Execution](#execution)
 
-## General info
-This project is simple Lorem ipsum dolor generator.
-	
+## Introduction
+In this project, we are going to implement the concept of Hash Table. 
+
+## Data Structure
+![Hash Table Structure](https://user-images.githubusercontent.com/36120672/112774313-ec120080-8ffe-11eb-8391-01cd44f5fac5.png)
+
+![Hash Index List Structuree](https://user-images.githubusercontent.com/36120672/112774391-24b1da00-8fff-11eb-9e7e-d0e2d3a109d3.png)
+
+
 ## Technologies
 Project is created with:
-* Lorem version: 12.3
-* Ipsum version: 2.33
-* Ament library version: 999
+* c++ language
+* g++ compiler
 	
-## Setup
-To run this project, install it locally using npm:
+## Execution
+To compile and run this project, install it locally using npm:
 
 ```
-$ cd ../lorem
-$ npm install
-$ npm start
+$ g++ main.cpp -o main
+$ ./main example.txt 50 State
 ```
