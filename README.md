@@ -10,7 +10,7 @@
 In this project, we are going to implement the concept of Hash Table. 
 
 ## Data Structure
-![Screenshot](./dataStruct.HashIndexList.png)
+![Screenshot](../dataStruct.HashIndexList.png)
 	
 ## Technologies
 Project is created with:
